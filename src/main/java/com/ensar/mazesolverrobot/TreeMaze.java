@@ -16,17 +16,19 @@ public class TreeMaze {
     
     private HashMap hashMap = new HashMap();
 
-    public TreeMaze(Vertex start) {
-        this.start = start;
-        this.curr = start;
+    public TreeMaze() {
     }  
     
     public void addVertex(int currDirection, int weight, short identifer, short x, short y){
         Vertex nVertex = new Vertex(identifer, x, y);
-        Edge nEdge = new Edge(weight, curr, nVertex);
-        if(!hashMap.add(nVertex)){
+        if(start == null){
+            start = nVertex;
+            curr = nVertex;
+        }
+        else if(!hashMap.add(nVertex)){
             nVertex = (Vertex)hashMap.getCachedData();
         }
+        Edge nEdge = new Edge(weight, curr, nVertex);
         curr.setEdge(nEdge, currDirection);
         nVertex.setEdge(nEdge, Direction.reverseDirection(currDirection));
         curr = nVertex;

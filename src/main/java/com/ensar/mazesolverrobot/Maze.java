@@ -20,37 +20,7 @@ public class Maze {
         direction = 0;
     }
     
-    public boolean turnRight(){
-        direction = (direction + 1) % 4;
-        return true;
-    }
-    
-    public boolean turnLeft(){
-        direction = (direction - 1) % 4;
-        return true;
-    }
-     
-    public boolean goForward(){
-        switch(direction){
-            case 0:
-                if (maze[y+1][x] == 0)y++;
-                else return false;
-                break;
-            case 1:
-                if (maze[y][x+1] == 0)x++;
-                else return false;
-                break;
-            case 2:
-                if (maze[y-1][x] == 0)y--;
-                else return false;
-                break;
-            case 3:
-                if (maze[y][x-1] == 0)x--;
-                else return false;
-                break;
-            default:
-                return false;
-        }
-        return true;
+    public int getBlock(int x, int y){
+        return maze[y][x];
     }
 }
