@@ -10,23 +10,47 @@ package com.ensar.mazesolverrobot;
  * @author ensar
  */
 public class Maze {
-    private int maze [];
-    int x, y, direction, mazeSide;
+    private int maze [][];
+    int x, y, direction;
 
-    public Maze(int[] maze, int startX, int startY) {
+    public Maze(int[][] maze, int startX, int startY) {
         this.maze = maze;
-        mazeSide = (int) Math.sqrt(maze.length);
         this.x = startX;
         this.y = startY;
         direction = 0;
     }
     
-    public boolean goForward(){
-        
+    public boolean turnRight(){
+        direction = (direction + 1) % 4;
+        return true;
     }
     
-    
-    private int getIndex(int x, int y){
-        return y * mazeSide + x;
+    public boolean turnLeft(){
+        direction = (direction - 1) % 4;
+        return true;
+    }
+     
+    public boolean goForward(){
+        switch(direction){
+            case 0:
+                if (maze[y+1][x] == 0)y++;
+                else return false;
+                break;
+            case 1:
+                if (maze[y][x+1] == 0)x++;
+                else return false;
+                break;
+            case 2:
+                if (maze[y-1][x] == 0)y--;
+                else return false;
+                break;
+            case 3:
+                if (maze[y][x-1] == 0)x--;
+                else return false;
+                break;
+            default:
+                return false;
+        }
+        return true;
     }
 }

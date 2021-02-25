@@ -13,15 +13,20 @@ package com.ensar.mazesolverrobot;
 public class TreeMaze {
      
     private Vertex start, curr, end;
+    
+    private HashMap hashMap = new HashMap();
 
     public TreeMaze(Vertex start) {
         this.start = start;
         this.curr = start;
     }  
     
-    public void addVertex(int currDirection, int weight, short identifer){
-        Vertex nVertex = new Vertex(identifer);
+    public void addVertex(int currDirection, int weight, short identifer, short x, short y){
+        Vertex nVertex = new Vertex(identifer, x, y);
         Edge nEdge = new Edge(weight, curr, nVertex);
+        if(!hashMap.add(nVertex)){
+            nVertex = (Vertex)hashMap.getCachedData();
+        }
         curr.setEdge(nEdge, currDirection);
         nVertex.setEdge(nEdge, Direction.reverseDirection(currDirection));
         curr = nVertex;

@@ -41,4 +41,5 @@ public class Direction {
     public static int reverseDirection(int direction){
         return (direction + 2) % 4;
     }
+    
 }
