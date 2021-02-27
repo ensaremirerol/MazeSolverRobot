@@ -1,5 +1,6 @@
 package com.ensar.mazesolverrobot;
 
+import javax.swing.*;
 import java.util.Iterator;
 
 public class MazeSolverRobotMain {
@@ -18,8 +19,10 @@ public class MazeSolverRobotMain {
         Maze maze = new Maze(m);
         Explorer explorer = new Explorer(maze, (short)1,(short)1);
         explorer.explore();
-        for (Hashable data : explorer.graph.getHashMap()) {
-            System.out.println(data);
-        }
+        JFrame window = new JFrame("Graph");
+        window.setSize(640,480);
+        GraphGraphics graphics = new GraphGraphics((explorer.graph.getHashMap()));
+        window.add(graphics);
+        window.setVisible(true);
     }
 }
