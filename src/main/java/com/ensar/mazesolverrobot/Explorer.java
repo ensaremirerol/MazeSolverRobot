@@ -14,7 +14,7 @@ public class Explorer {
     private int direction = 0;
     private int currentWeight;
     private Maze maze;
-    private TreeMaze graph = new TreeMaze();
+    public TreeMaze graph = new TreeMaze();
 
     public Explorer(Maze maze, short startX, short startY){
         this.maze = maze;

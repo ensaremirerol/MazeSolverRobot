@@ -5,20 +5,28 @@
  */
 package com.ensar.mazesolverrobot;
 
+import java.util.Iterator;
+
 /**
  *
  * @author ensar
  */
-public class HashMap {
-    class Node{
-        public int hash;
-        public Hashable data;
-        public Node next;
 
-        public Node(int hash, Hashable data) {
-            this.hash = hash;
-            this.data = data;
-        }
+class Node{
+    public int hash;
+    public Hashable data;
+    public Node next;
+
+    public Node(int hash, Hashable data) {
+        this.hash = hash;
+        this.data = data;
+    }
+}
+
+public class HashMap implements Iterable<Hashable>{
+    @Override
+    public Iterator<Hashable> iterator() {
+        return new HashMapIterator(root);
     }
     
     Node root;
@@ -57,5 +65,24 @@ public class HashMap {
     
     public Hashable getCachedData(){
         return temp.data;
+    }
+}
+
+class HashMapIterator implements Iterator<Hashable>{
+    Node root;
+
+    public HashMapIterator(Node root){
+        this.root = root;
+    }
+    @Override
+    public boolean hasNext() {
+        return root.next != null;
+    }
+
+    @Override
+    public Hashable next() {
+        Hashable retVal = root.data;
+        root = root.next;
+        return retVal;
     }
 }

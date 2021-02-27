@@ -28,17 +28,20 @@ public class TreeMaze {
             curr = nVertex;
             hashMap.add(nVertex);
             incrementNullEdge(identifier);
-            return;
         }
         else if(!hashMap.add(nVertex)){
             nVertex = (Vertex)hashMap.getCachedData();
+            nullEdges--;
         }
-        Edge nEdge = new Edge(weight, curr, nVertex);
-        curr.setEdge(nEdge, currDirection);
-        nVertex.setEdge(nEdge, Direction.reverseDirection(currDirection));
-        curr = nVertex;
-        incrementNullEdge(identifier);
-        nullEdges--;
+        else{
+            Edge nEdge = new Edge(weight, curr, nVertex);
+            curr.setEdge(nEdge, currDirection);
+            nVertex.setEdge(nEdge, Direction.reverseDirection(currDirection));
+            curr = nVertex;
+            incrementNullEdge(identifier);
+            nullEdges--;
+        }
+
     }
 
     private void incrementNullEdge(short identifier){
@@ -84,5 +87,9 @@ public class TreeMaze {
     public void markAsEnd(){
         end = curr;
     }
-    
+
+    public HashMap getHashMap(){
+        return hashMap;
+    }
+
 }

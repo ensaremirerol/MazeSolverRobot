@@ -37,5 +37,10 @@ public class Vertex implements Hashable{
         
         return (x << 8) | y;
     }
+
+    @Override
+    public String toString(){
+        return vX + " " + vY;
+    }
 }
 
