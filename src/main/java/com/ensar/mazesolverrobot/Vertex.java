@@ -10,12 +10,13 @@ package com.ensar.mazesolverrobot;
  * @author ensar
  */
 public class Vertex implements Hashable{
-    Edge edges [] = new Edge[4];
-    boolean start, end;
-    public short identifer;
-    public short vX, vY;
-    public Vertex(short identifer, short x, short y) {
-        this.identifer = identifer;
+    public Edge edges [] = new Edge[4];
+    public boolean start, end;
+    final public short identifier;
+    final public short vX, vY;
+    public byte visitCounter = 0;
+    public Vertex(short identifier, short x, short y) {
+        this.identifier = identifier;
         this.vX = x;
         this.vY = y;
     }

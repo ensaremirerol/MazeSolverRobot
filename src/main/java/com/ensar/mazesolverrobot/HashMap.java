@@ -30,7 +30,7 @@ public class HashMap {
     
     public boolean add(Hashable data){
         int hash = data.hash();
-        if(serach(data) != null){
+        if(search(data) != null){
             return false;
         }
         if(root == null){
@@ -45,11 +45,12 @@ public class HashMap {
         return true;
     }
     
-    public Hashable serach(Hashable data){
+    public Hashable search (Hashable data){
         int hash = data.hash();
         temp = root;
         while(temp != null){
             if(temp.hash == hash) return temp.data;
+            temp = temp.next;
         }
         return null;
     }

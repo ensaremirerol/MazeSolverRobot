@@ -23,7 +23,7 @@ public class Direction {
     public static short SOUTH = 1 << 2;
     public static short WEST = 1 << 3;
     
-    public static short direction2Indetifer(int direction) throws NotDirection{
+    public static short direction2Identifier(int direction) throws NotDirection{
         switch(direction){
             case 0:
                 return NORTH;

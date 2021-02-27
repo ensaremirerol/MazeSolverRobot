@@ -10,14 +10,10 @@ package com.ensar.mazesolverrobot;
  * @author ensar
  */
 public class Maze {
-    private int maze [][];
-    int x, y, direction;
+    private int[][] maze;
 
-    public Maze(int[][] maze, int startX, int startY) {
+    public Maze(int[][] maze) {
         this.maze = maze;
-        this.x = startX;
-        this.y = startY;
-        direction = 0;
     }
     
     public int getBlock(int x, int y){
