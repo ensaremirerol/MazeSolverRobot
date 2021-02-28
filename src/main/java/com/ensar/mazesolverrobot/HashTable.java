@@ -23,17 +23,19 @@ class Node{
     }
 }
 
-public class HashMap implements Iterable<Hashable>{
+public class HashTable implements Iterable<Hashable>{
     @Override
     public Iterator<Hashable> iterator() {
         return new HashMapIterator(root);
     }
     
-    Node root;
-    Node curr;
-    Node temp;
+    private Node root;
+    private Node curr;
+    private Node temp;
+    private int size;
 
-    public HashMap() {
+    public HashTable() {
+        size = 0;
     }
     
     public boolean add(Hashable data){
@@ -49,7 +51,7 @@ public class HashMap implements Iterable<Hashable>{
             curr.next = new Node(hash, data);
             curr = curr.next;
         }
-        
+        size++;
         return true;
     }
     
@@ -66,6 +68,10 @@ public class HashMap implements Iterable<Hashable>{
     public Hashable getCachedData(){
         return temp.data;
     }
+
+    public int getSize() {
+        return size;
+    }
 }
 
 class HashMapIterator implements Iterator<Hashable>{
@@ -76,7 +82,7 @@ class HashMapIterator implements Iterator<Hashable>{
     }
     @Override
     public boolean hasNext() {
-        return root.next != null;
+        return root != null;
     }
 
     @Override

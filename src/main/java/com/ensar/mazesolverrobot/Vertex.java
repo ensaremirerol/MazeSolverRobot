@@ -23,7 +23,7 @@ public class Vertex implements Hashable{
     
     public Vertex getVertex(int direction){
         Edge edge = edges[direction];
-        return edge.v1 != this? edge.v1:edge.v2;
+        return !edge.v1.equals(this)? edge.v1:edge.v2;
     }
     
     public void setEdge(Edge edge, int direction){
@@ -41,6 +41,12 @@ public class Vertex implements Hashable{
     @Override
     public String toString(){
         return vX + " " + vY;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Vertex v = (Vertex) obj;
+        return v != null && v.hash() == this.hash();
     }
 }
 

@@ -14,6 +14,7 @@ public class Explorer {
     private int direction = 0;
     private int currentWeight;
     private Maze maze;
+    private Dijkstra dijkstra;
     public TreeMaze graph = new TreeMaze();
 
     public Explorer(Maze maze, short startX, short startY){
@@ -87,35 +88,13 @@ public class Explorer {
         else return maze.getBlock(x, y + 1) == 0 || maze.getBlock(x, y - 1) == 0;
     }
 
-    private void goBack(){
-        Vertex curr = graph.getCurr();
-        while (!((curr.identifier & Direction.NORTH) == Direction.NORTH && curr.edges[0] == null) ||
-                ((curr.identifier & Direction.EAST) == Direction.EAST && curr.edges[1] == null) ||
-                ((curr.identifier & Direction.SOUTH) == Direction.SOUTH && curr.edges[2] == null) ||
-                ((curr.identifier & Direction.WEST) == Direction.WEST && curr.edges[3] == null)){
-            int minVal = Integer.MAX_VALUE;
-            int minIndex = -1;
-            for (int i = 0; i < 4; i++){
-                try{
-                    if(minVal > graph.getOtherVertex(i).visitCounter){
-                        minIndex = i;
-                        minVal = graph.getOtherVertex(i).visitCounter;
-                    }
-                }
-                catch(NullPointerException e){
-
-                }
-            }
-            graph.changeVertex(minIndex);
-            curr = graph.getCurr();
-            curr.visitCounter++;
-            x = curr.vX;
-            y = curr.vY;
-
-            System.out.println("x " + x);
-            System.out.println("y " + y);
-            System.out.println();
-        }
+    private boolean goBack(){
+        dijkstra = new Dijkstra(graph.getHashMap(), graph.getCurr());
+        graph.setCurr(dijkstra.getClosestNull());
+        if(graph.getCurr() == null) return false;
+        x = graph.getCurr().vX;
+        y = graph.getCurr().vY;
+        return true;
     }
 
 
@@ -123,22 +102,21 @@ public class Explorer {
     public boolean explore(){
         graph.addVertex(direction, 0, getSenorInfo(), x, y);
         graph.getCurr().visitCounter++;
-        while (graph.isThereNullEdge()){
-            System.out.println("x " + x);
-            System.out.println("y " + y);
-            System.out.println();
+        while (true){
             direction = decideDirection();
-            if (direction == -1){
-                goBack();
-                continue;
+            if (direction == -1 && !goBack()){
+                break;
             }
-            goForward();
-            while (!interrupt() && goForward()){
-                currentWeight++;
+            else if (direction != -1){
+                goForward();
+                while (!interrupt() && goForward()){
+                    currentWeight++;
+                }
+                graph.addVertex(direction, currentWeight, getSenorInfo(), x, y);
+                graph.getCurr().visitCounter++;
+                currentWeight = 0;
             }
-            graph.addVertex(direction, currentWeight, getSenorInfo(), x, y);
-            graph.getCurr().visitCounter++;
-            currentWeight = 0;
+
         }
         return true;
     }
